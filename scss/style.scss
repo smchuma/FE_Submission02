@@ -20,7 +20,7 @@ body {
       li {
         margin-left: 10px;
         list-style: none;
-        background: yellow;
+        background: #f7b500;
         padding: 15px;
         border-radius: 50%;
         cursor: pointer;
@@ -55,8 +55,8 @@ body {
         flex: 1;
 
         h1 {
-          font-size: 30px;
-          color: #434549;
+          font-size: 28px;
+          color: #4d5055;
         }
       }
       .image {
@@ -83,7 +83,7 @@ body {
         padding: 2px 10px;
 
         &::placeholder {
-          color: #000000;
+          color: #4d5055;
           font-size: 30px;
         }
       }
@@ -96,3 +96,5 @@ body {
     }
   }
 }
+
+@import "./mobile";
