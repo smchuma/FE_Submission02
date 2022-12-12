@@ -51,6 +51,21 @@
         padding: 20px;
         border: 2px solid $border-color;
         width: 250px;
+
+        .card-content {
+          .card-name {
+            font-size: 20px;
+            color: black;
+            margin-bottom: 10px;
+          }
+          .values {
+            display: flex;
+            .card-value {
+              font-size: 18px;
+              color: black;
+            }
+          }
+        }
       }
     }
   }
