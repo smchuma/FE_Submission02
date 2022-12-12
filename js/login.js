@@ -19,7 +19,7 @@ const submitForm = (e) => {
   const errorMessage = document.getElementById("error-message");
 
   const fetch = new XMLHttpRequest();
-  fetch.open("POST", "https://freddy.codesubmit.io/login");
+  fetch.open("POST", "https://freddy.codesubmit.io/login", true);
   fetch.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   fetch.send(
     JSON.stringify({

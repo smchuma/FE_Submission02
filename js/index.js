@@ -20,7 +20,7 @@ xhr.onload = () => {
 
 const loadUser = () => {
   const fetch = new XMLHttpRequest();
-  fetch.open("GET", "https://freddy.codesubmit.io/dashboard");
+  fetch.open("GET", "https://freddy.codesubmit.io/dashboard", true);
   fetch.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   fetch.setRequestHeader("Authorization", "Bearer " + accessToken);
   fetch.responseType = "json";

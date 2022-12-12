@@ -4,10 +4,60 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="./js/index.js"></script>
+    <script defer src="./js/index.js"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+
     <title>Dashboard</title>
   </head>
   <body>
-    <h1>Dashboard2</h1>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <div class="logo">
+          <img src="./images/Freddys_Logo.svg" alt="logo" />
+        </div>
+        <ul>
+          <li>
+            <a href="#">Dashboard</a>
+          </li>
+          <li>
+            <a href="#">Orders</a>
+          </li>
+          <li>
+            <a href="#" id="logout">Logout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="cards">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Today</div>
+              <div class="card-value">121</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Today</div>
+              <div class="card-value">121</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Today</div>
+              <div class="card-value">121</div>
+            </div>
+          </div>
+        </div>
+        <div class="charts"></div>
+        <div class="best-seller"></div>
+      </div>
+    </div>
   </body>
 </html>

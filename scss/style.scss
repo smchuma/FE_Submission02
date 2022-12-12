@@ -1,4 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap");
+
+$border-color: #979797;
+$color: #4d5055;
+
 * {
   padding: 0;
   margin: 0;
@@ -7,4 +11,35 @@
   font-family: "Roboto Mono", monospace;
 }
 
+body {
+  background: #d8d8d8;
+}
+
+nav {
+  background: #1f3473;
+  padding: 15px;
+
+  ul {
+    display: flex;
+
+    li {
+      margin-left: 10px;
+      list-style: none;
+      background: #f7b500;
+      padding: 15px;
+      border-radius: 50%;
+      cursor: pointer;
+
+      &:first-child {
+        background: #d92323;
+      }
+
+      &:last-child {
+        background: #84d904;
+      }
+    }
+  }
+}
+
 @import "login";
+@import "dashboard";
