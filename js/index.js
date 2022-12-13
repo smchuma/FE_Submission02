@@ -1,8 +1,12 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
 import { fetchData } from "./utils/fetchData.js";
+import { bestSellers } from "./bestSellers.js";
+import { logout } from "./utils/logout.js";
 
 let accessToken = localStorage.getItem("accessToken");
 const refreshToken = localStorage.getItem("refreshToken");
+const url = "https://freddy.codesubmit.io/dashboard";
+const refreshUrl = "https://freddy.codesubmit.io/refresh";
 const date = new Date();
 
 if (accessToken == null) {
@@ -10,14 +14,9 @@ if (accessToken == null) {
 }
 
 // function to refresh the token
+fetchRefresh(refreshUrl, accessToken, refreshToken);
 
-fetchRefresh(
-  "POST",
-  "https://freddy.codesubmit.io/refresh",
-  accessToken,
-  refreshToken
-);
-
+//function to shorten numbers
 function trimNumber(num) {
   if (num >= 1000000) {
     return Math.round(num / 1000000) + "M";
@@ -28,10 +27,8 @@ function trimNumber(num) {
 }
 
 // function to get today data from the API
-
 const getToday = () => {
-  fetchData(accessToken).then((products) => {
-    console.log(products);
+  fetchData(accessToken, url).then((products) => {
     const today = date.getDay() + 1;
     const todayData = products.dashboard.sales_over_time_week[today];
     document.getElementById("today-total").innerText = `$${trimNumber(
@@ -44,8 +41,9 @@ const getToday = () => {
 };
 getToday();
 
+// function to get last week data from the API
 const getWeek = () => {
-  fetchData(accessToken).then((products) => {
+  fetchData(accessToken, url).then((products) => {
     let sumOrders = 0;
     let sumTotal = 0;
     Object.keys(products.dashboard.sales_over_time_week).forEach((key) => {
@@ -60,10 +58,10 @@ const getWeek = () => {
 };
 getWeek();
 
+//function to get last month data
 const getMonth = () => {
-  fetchData(accessToken).then((products) => {
+  fetchData(accessToken, url).then((products) => {
     const month = date.getMonth();
-    console.log("month", month);
     const monthData = products.dashboard.sales_over_time_year[month];
     document.getElementById("month-total").innerText = `$${trimNumber(
       monthData.total
@@ -75,3 +73,123 @@ const getMonth = () => {
 };
 
 getMonth();
+
+const data = {
+  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  datasets: [
+    {
+      label: "chart",
+      data: [5, 19, 3, 5, 2, 3],
+      borderWidth: 4,
+      barThickness: 30,
+      backgroundColor: "transparent",
+      borderColor: "#959595",
+    },
+  ],
+};
+
+const customBorder = {
+  id: "customBorder",
+  beforeDatasetsDraw(chart, args, pluginsOptions) {
+    const {
+      ctx,
+      chartArea: { left, top, right, bottom, width, height },
+    } = chart;
+
+    ctx.save();
+    ctx.beginPath();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = "red";
+    ctx.moveTo(left, top);
+    ctx.lineTo(right, top);
+    ctx.lineTo(right, bottom);
+    ctx.lineTo(left, bottom);
+    ctx.closePath();
+  },
+};
+
+// config
+const config = {
+  type: "bar",
+  data,
+  options: {
+    plugins: {
+      customBorder, // bot working
+      legend: {
+        display: false,
+      },
+    },
+    scales: {
+      y: {
+        display: false,
+        drawBorder: false,
+        grid: {
+          display: false,
+        },
+      },
+      x: {
+        drawBorder: false,
+        grid: {
+          display: false,
+        },
+      },
+    },
+  },
+};
+
+const myChart = new Chart(document.getElementById("myChart"), config);
+const myChart2 = new Chart(document.getElementById("myChart2"), config);
+
+const dayList = ["today", "yesterday", "day 3", "day 4", "day 6", "day 7"];
+const monthList = [
+  "this month",
+  "last month",
+  "month 3",
+  "month 4",
+  "month 5",
+  "month 6",
+  "month 7",
+  "month 8",
+  "month 9",
+  "month 10",
+  "month 11",
+  "month 12",
+];
+const getChart = () => {
+  const days = dayList.map((day) => {
+    return day;
+  });
+  myChart.config.data.labels = days;
+
+  fetchData(accessToken, url).then((products) => {
+    const revenue = Object.values(products.dashboard.sales_over_time_week).map(
+      (day) => day.total
+    );
+    myChart.config.data.datasets[0].data = revenue;
+    myChart.update();
+  });
+};
+getChart();
+
+const getChart2 = () => {
+  // const days = dayList.map((day) => {
+  //   return day;
+  // });
+  // myChart.config.data.labels = days;
+
+  fetchData(accessToken, url).then((products) => {
+    const monthlyRevenue = Object.values(
+      products.dashboard.sales_over_time_year
+    ).map((month) => month.total);
+    console.log(monthlyRevenue);
+    myChart2.config.data.datasets[0].data = monthlyRevenue;
+    myChart2.update();
+  });
+};
+getChart2();
+// setup
+
+bestSellers(url, accessToken);
+
+const logoutUser = document.getElementById("logoutUser");
+logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));

@@ -1,7 +1,7 @@
-export const fetchData = (accessToken) => {
+export const fetchData = (accessToken, url) => {
   const promise = new Promise((resolve, reject) => {
     const fetch = new XMLHttpRequest();
-    fetch.open("GET", "https://freddy.codesubmit.io/dashboard", true);
+    fetch.open("GET", url, true);
     fetch.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
     fetch.setRequestHeader("Authorization", "Bearer " + accessToken);
     fetch.send();

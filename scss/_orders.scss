@@ -1,0 +1,19 @@
+.title-container {
+  display: flex;
+  justify-content: space-between;
+
+  .search {
+    i {
+      transform: rotate((90deg));
+      font-size: 25px;
+    }
+    input {
+      border: none;
+      width: 250px;
+      padding: 2px;
+      font-size: 20px;
+      background: transparent;
+      border: 2px solid gray;
+    }
+  }
+}

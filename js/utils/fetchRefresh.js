@@ -1,6 +1,6 @@
-export const fetchRefresh = (method, url, accessToken, refreshToken) => {
+export const fetchRefresh = (url, accessToken, refreshToken) => {
   const xhr = new XMLHttpRequest();
-  xhr.open(method, url);
+  xhr.open("POST", url);
   xhr.setRequestHeader("Authorization", "Bearer " + refreshToken);
   xhr.send("refreshToken" + refreshToken);
 
