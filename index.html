@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script defer src="./js/index.js"></script>
+    <script type="module" defer src="./js/index.js"></script>
     <link rel="stylesheet" href="./css/style.css" />
 
     <title>Dashboard</title>
@@ -56,8 +56,11 @@
           </div>
           <div class="card">
             <div class="card-content">
-              <div class="card-name">Today</div>
-              <div class="card-value">121</div>
+              <div class="card-name">Last Month</div>
+              <div class="values">
+                <div class="card-value" id="month-total"></div>
+                <div class="card-value" id="month-orders"></div>
+              </div>
             </div>
           </div>
         </div>
