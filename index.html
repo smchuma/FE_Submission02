@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
     <title>Dashboard</title>
   </head>
   <body>
@@ -62,14 +63,15 @@
         </div>
         <div class="charts">
           <div class="chart-title">
-            <h2>Revenue (last 7 days)</h2>
             <input type="checkbox" id="btn" />
           </div>
           <div class="chart-table">
-            <div class="first">
+            <div class="first" id="first">
+              <h2>Revenue Last 7 days</h2>
               <canvas id="myChart" class="mychart"></canvas>
             </div>
-            <div class="second">
+            <div class="second" id="second">
+              <h2>Revenue Last 12 months</h2>
               <canvas id="myChart2" class="mychart2"></canvas>
             </div>
           </div>

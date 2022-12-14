@@ -1,32 +1,33 @@
 @media all and (max-width: 1495px) {
   body {
     .container {
-      width: 40%;
-
-      .title-box {
-        .title {
-          h1 {
-            font-size: 26px;
+      .login-form {
+        width: 40%;
+        .title-box {
+          .title {
+            h1 {
+              font-size: 26px;
+            }
+          }
+          .image {
+            img {
+              width: 70%;
+            }
           }
         }
-        .image {
-          img {
-            width: 70%;
+
+        form {
+          input {
+            font-size: 25px;
+
+            &::placeholder {
+              font-size: 25px;
+            }
           }
-        }
-      }
 
-      form {
-        input {
-          font-size: 25px;
-
-          &::placeholder {
+          button {
             font-size: 25px;
           }
-        }
-
-        button {
-          font-size: 25px;
         }
       }
     }
@@ -35,12 +36,14 @@
 @media all and (max-width: 1070px) {
   body {
     .container {
-      width: 45%;
+      .login-form {
+        width: 45%;
 
-      .title-box {
-        .title {
-          h1 {
-            font-size: 24px;
+        .title-box {
+          .title {
+            h1 {
+              font-size: 24px;
+            }
           }
         }
       }
@@ -50,37 +53,39 @@
 @media all and (max-width: 950px) {
   body {
     .container {
-      width: 60%;
+      .login-form {
+        width: 60%;
 
-      .title-box {
-        flex-direction: column-reverse;
+        .title-box {
+          flex-direction: column-reverse;
 
-        .title {
-          h1 {
-            margin-top: 20px;
+          .title {
+            h1 {
+              margin-top: 20px;
+              font-size: 22px;
+              text-align: center;
+            }
+          }
+          .image {
+            justify-content: center;
+            img {
+              width: 50%;
+            }
+          }
+        }
+
+        form {
+          input {
             font-size: 22px;
-            text-align: center;
-          }
-        }
-        .image {
-          justify-content: center;
-          img {
-            width: 50%;
-          }
-        }
-      }
 
-      form {
-        input {
-          font-size: 22px;
+            &::placeholder {
+              font-size: 22px;
+            }
+          }
 
-          &::placeholder {
+          button {
             font-size: 22px;
           }
-        }
-
-        button {
-          font-size: 22px;
         }
       }
     }
@@ -89,19 +94,21 @@
 @media all and (max-width: 650px) {
   body {
     .container {
-      width: 80%;
+      .login-form {
+        width: 80%;
 
-      form {
-        input {
-          font-size: 18px;
+        form {
+          input {
+            font-size: 18px;
 
-          &::placeholder {
+            &::placeholder {
+              font-size: 18px;
+            }
+          }
+
+          button {
             font-size: 18px;
           }
-        }
-
-        button {
-          font-size: 18px;
         }
       }
     }
@@ -111,7 +118,9 @@
 @media all and (max-width: 350px) {
   body {
     .container {
-      width: 100%;
+      .login-form {
+        width: 100%;
+      }
     }
   }
 }

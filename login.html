@@ -17,32 +17,34 @@
       </ul>
     </nav>
     <div class="container">
-      <div class="title-box">
-        <div class="title">
-          <h1>Freddy's Artisanal Halloween Candy Shop</h1>
+      <div class="login-form">
+        <div class="title-box">
+          <div class="title">
+            <h1>Freddy's Artisanal Halloween Candy Shop</h1>
+          </div>
+          <div class="image">
+            <img src="./images/Freddys_Logo.svg" alt="freddy" />
+          </div>
         </div>
-        <div class="image">
-          <img src="./images/Freddys_Logo.svg" alt="freddy" />
-        </div>
+        <form method="post" id="login-form" onsubmit="return submitForm(event)">
+          <input
+            type="text"
+            placeholder="username"
+            name="username"
+            id="username"
+            required
+          />
+          <input
+            type="password"
+            placeholder="password"
+            name="password"
+            id="password"
+            required
+          />
+          <button type="submit">Login</button>
+          <div id="error-message" class="error"></div>
+        </form>
       </div>
-      <form method="post" id="login-form" onsubmit="return submitForm(event)">
-        <input
-          type="text"
-          placeholder="username"
-          name="username"
-          id="username"
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          name="password"
-          id="password"
-          required
-        />
-        <button type="submit">Login</button>
-        <div id="error-message" class="error"></div>
-      </form>
     </div>
   </body>
 </html>

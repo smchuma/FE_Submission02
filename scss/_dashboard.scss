@@ -80,7 +80,7 @@
     width: 50%;
     .chart-title {
       display: flex;
-      justify-content: space-between;
+      float: right;
       margin-bottom: 30px;
 
       input[type="checkbox"] {
@@ -110,15 +110,10 @@
       }
     }
     .chart-table {
-      border: 1px solid gray;
-
-      .first {
-        width: 100%;
-        height: 100%;
+      canvas {
+        border: 1px solid gray;
       }
       .second {
-        width: 100%;
-        height: 100%;
         display: none;
       }
     }

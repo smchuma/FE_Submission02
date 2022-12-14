@@ -75,7 +75,20 @@ const getMonth = () => {
 getMonth();
 
 const data = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  labels: [
+    "this month",
+    "last month",
+    "month 3",
+    "month 4",
+    "month 5",
+    "month 6",
+    "month 7",
+    "month 8",
+    "month 9",
+    "month 10",
+    "month 11",
+    "month 12",
+  ],
   datasets: [
     {
       label: "chart",
@@ -140,26 +153,13 @@ const config = {
 const myChart = new Chart(document.getElementById("myChart"), config);
 const myChart2 = new Chart(document.getElementById("myChart2"), config);
 
-const dayList = ["today", "yesterday", "day 3", "day 4", "day 6", "day 7"];
-const monthList = [
-  "this month",
-  "last month",
-  "month 3",
-  "month 4",
-  "month 5",
-  "month 6",
-  "month 7",
-  "month 8",
-  "month 9",
-  "month 10",
-  "month 11",
-  "month 12",
-];
 const getChart = () => {
+  const dayList = ["today", "yesterday", "day 3", "day 4", "day 6", "day 7"];
   const days = dayList.map((day) => {
     return day;
   });
   myChart.config.data.labels = days;
+  myChart.update();
 
   fetchData(accessToken, url).then((products) => {
     const revenue = Object.values(products.dashboard.sales_over_time_week).map(
@@ -172,10 +172,25 @@ const getChart = () => {
 getChart();
 
 const getChart2 = () => {
-  // const days = dayList.map((day) => {
-  //   return day;
-  // });
-  // myChart.config.data.labels = days;
+  const monthList = [
+    "this month",
+    "last month",
+    "month 3",
+    "month 4",
+    "month 5",
+    "month 6",
+    "month 7",
+    "month 8",
+    "month 9",
+    "month 10",
+    "month 11",
+    "month 12",
+  ];
+  const months = monthList.map((month) => {
+    return month;
+  });
+  myChart2.config.data.labels = monthList;
+  myChart2.update();
 
   fetchData(accessToken, url).then((products) => {
     const monthlyRevenue = Object.values(
@@ -193,3 +208,20 @@ bestSellers(url, accessToken);
 
 const logoutUser = document.getElementById("logoutUser");
 logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
+
+const button = document.querySelector("#btn");
+const table1 = document.querySelector("#first");
+const table2 = document.querySelector("#second");
+let table1Visible = true;
+
+button.addEventListener("click", () => {
+  if (table1Visible) {
+    $(table1).hide();
+    $(table2).show();
+    table1Visible = false;
+  } else {
+    $(table2).hide();
+    $(table1).show();
+    table1Visible = true;
+  }
+});

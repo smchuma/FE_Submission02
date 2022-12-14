@@ -16,11 +16,14 @@ fetchRefresh(refreshUrl, accessToken, refreshToken);
 const fetchOrders = (accessToken, url, table) => {
   const tableBody = table.querySelector("tbody");
 
+  const searchTerm = document.getElementById("search").value;
+
   fetchData(accessToken, url).then((data) => {
     tableBody.innerHTML = "";
-    const { orders, page, total } = data;
-    console.log(orders);
-    orders.forEach((item) => {
+
+    const { orders } = data;
+
+    const Orders = orders.map((item) => {
       const row = document.createElement("tr");
       const name = document.createElement("td");
       const date = document.createElement("td");
@@ -28,7 +31,7 @@ const fetchOrders = (accessToken, url, table) => {
       const status = document.createElement("td");
 
       name.innerHTML = item.product.name;
-      date.innerHTML = item.created_at;
+      date.innerHTML = null;
       price.innerHTML = null;
       status.innerHTML = item.status;
       if (item.status == "delivered") {
@@ -48,3 +51,6 @@ const fetchOrders = (accessToken, url, table) => {
 };
 
 fetchOrders(accessToken, url, document.querySelector("table"));
+
+const logoutUser = document.getElementById("logoutUser");
+logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
