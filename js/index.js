@@ -189,14 +189,13 @@ const getChart2 = () => {
   const months = monthList.map((month) => {
     return month;
   });
-  myChart2.config.data.labels = monthList;
+  myChart2.config.data.labels = months;
   myChart2.update();
 
   fetchData(accessToken, url).then((products) => {
     const monthlyRevenue = Object.values(
       products.dashboard.sales_over_time_year
     ).map((month) => month.total);
-    console.log(monthlyRevenue);
     myChart2.config.data.datasets[0].data = monthlyRevenue;
     myChart2.update();
   });
