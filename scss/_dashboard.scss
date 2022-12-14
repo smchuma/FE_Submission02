@@ -6,6 +6,7 @@
     height: calc(100% - 60px);
     border-right: 2px solid $border-color;
     overflow-x: hidden;
+    z-index: 10;
 
     .logo {
       margin-top: 20px;
@@ -132,6 +133,7 @@
         border: 1px solid gray;
         width: 100%;
         margin-top: 40px;
+        overflow: hidden;
 
         thead {
           margin-left: 20px;
@@ -139,6 +141,8 @@
 
         tbody {
           text-align: center;
+          overflow: auto;
+          width: 100%;
           tr {
             td {
               max-width: 100px;
@@ -146,6 +150,7 @@
               overflow: hidden;
               text-overflow: ellipsis;
               white-space: nowrap;
+              vertical-align: middle;
             }
           }
         }

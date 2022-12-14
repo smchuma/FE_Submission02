@@ -18,6 +18,9 @@ body {
 nav {
   background: #1f3473;
   padding: 15px;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
 
   ul {
     display: flex;

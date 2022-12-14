@@ -11,27 +11,40 @@ if (accessToken == null) {
   window.location.href = "login.html";
 }
 
-// function to refresh the token
 fetchRefresh(refreshUrl, accessToken, refreshToken);
 
-const fetchOrders = () => {
-  fetchData(accessToken, url).then((orders) => {
+const fetchOrders = (accessToken, url, table) => {
+  const tableBody = table.querySelector("tbody");
+
+  fetchData(accessToken, url).then((data) => {
+    tableBody.innerHTML = "";
+    const { orders, page, total } = data;
     console.log(orders);
-    const placeholder = document.getElementById("data-output");
-    let output = "";
-    orders.orders.forEach((item) => {
-      output += `
-            <tr>
-            <td>${item.product.name}</td>
-            <td>${item.created_at}</td>
-            <td></td>
-            <td>${item.status}</td>
-            </tr>`;
+    orders.forEach((item) => {
+      const row = document.createElement("tr");
+      const name = document.createElement("td");
+      const date = document.createElement("td");
+      const price = document.createElement("td");
+      const status = document.createElement("td");
+
+      name.innerHTML = item.product.name;
+      date.innerHTML = item.created_at;
+      price.innerHTML = null;
+      status.innerHTML = item.status;
+      if (item.status == "delivered") {
+        status.style.color = "green";
+      } else if (item.status == "processing") {
+        status.style.color = "red";
+      }
+
+      row.appendChild(name);
+      row.appendChild(date);
+      row.appendChild(price);
+      row.appendChild(status);
+
+      tableBody.appendChild(row);
     });
-    placeholder.innerHTML = output;
   });
 };
-fetchOrders(url, accessToken);
 
-// const logoutUser = document.getElementById("logoutUser");
-// logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
+fetchOrders(accessToken, url, document.querySelector("table"));
