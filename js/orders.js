@@ -72,6 +72,8 @@ const renderTable = async (table) => {
 
 renderTable(table);
 
+//! buttons for pagination
+
 const prevPage = async () => {
   if (currentPage > 1) {
     currentPage--;

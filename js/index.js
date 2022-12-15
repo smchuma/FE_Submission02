@@ -15,7 +15,7 @@ if (accessToken == null) {
 
 fetchRefresh(refreshUrl, accessToken, refreshToken);
 
-//function to shorten numbers
+//!function to shorten numbers
 function trimNumber(num) {
   if (num >= 1000000) {
     return Math.round(num / 1000000) + "M";
@@ -55,7 +55,7 @@ const getToday = async () => {
 
 getToday();
 
-// function to get last week data from the API
+//! function to get last week data from the API
 
 const getWeek = async () => {
   await fetchData();
@@ -136,7 +136,7 @@ const config = {
 const myChart = new Chart(document.getElementById("myChart"), config);
 const myChart2 = new Chart(document.getElementById("myChart2"), config);
 
-// function to get the chart data from the API
+//! function to get the chart data from the API
 
 const getChart = async () => {
   await fetchData();
@@ -264,6 +264,7 @@ const prevPage = async () => {
   }
 };
 
+//!  pagination buttons
 const nexPage = async () => {
   if (currentPage < Math.ceil(globalData.bestsellers.length / pageSize)) {
     currentPage++;
@@ -274,6 +275,6 @@ const nexPage = async () => {
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
 
-// function for logout
+//! function for logout
 const logoutUser = document.getElementById("logoutUser");
 logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
