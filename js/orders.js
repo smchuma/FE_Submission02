@@ -35,15 +35,20 @@ async function fetchData() {
 
 const table = document.querySelector("table");
 
-const pages = async (table) => {
+const renderTable = async (table) => {
   const tableBody = table.querySelector("tbody");
   await fetchData();
   const data = globalData;
-  const pages = Math.ceil(data.length / pageSize);
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   const paginatedItems = data.slice(start, end);
   tableBody.innerHTML = "";
+  const pageNumber = document.createElement("button");
+
+  pageNumber.innerHTML = currentPage;
+  numbers.innerHTML = "";
+
+  numbers.appendChild(pageNumber);
 
   paginatedItems.forEach((item) => {
     const row = document.createElement("tr");
@@ -70,10 +75,21 @@ const pages = async (table) => {
   });
 };
 
-pages(table);
+renderTable(table);
 
-const searchTable = async () => {
-  await fetchData();
+const prevPage = async () => {
+  if (currentPage > 1) {
+    currentPage--;
+    await renderTable(table);
+  }
 };
 
-searchTable();
+const nexPage = async () => {
+  if (currentPage < Math.ceil(globalData.length / pageSize)) {
+    currentPage++;
+    await renderTable(table);
+  }
+};
+
+document.getElementById("prev").addEventListener("click", prevPage);
+document.getElementById("next").addEventListener("click", nexPage);
