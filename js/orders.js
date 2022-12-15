@@ -47,7 +47,6 @@ const renderTable = async (table) => {
 
   pageNumber.innerHTML = currentPage;
   numbers.innerHTML = "";
-
   numbers.appendChild(pageNumber);
 
   paginatedItems.forEach((item) => {
@@ -93,3 +92,24 @@ const nexPage = async () => {
 
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
+
+// const searchFilter = async () => {
+//   await fetchData();
+//   const data = globalData;
+//   const search = document.getElementById("search");
+//   search.addEventListener("keyup", (e) => {
+//     search.value = e.target.value;
+
+//     const filteredData = data.filter((item) => {
+//       return (
+//         item.product.name.toLowerCase().includes(search.value.toLowerCase()) ||
+//         item.status.toLowerCase().includes(search.value.toLowerCase())
+//       );
+//     });
+//     console.log("filteredData", filteredData);
+//   });
+
+//   console.log("filteredData", filteredData);
+// };
+
+// searchFilter();

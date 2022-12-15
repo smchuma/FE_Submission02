@@ -1,5 +1,5 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
-import { fetchData } from "./utils/fetchData.js";
+// import { fetchData } from "./utils/fetchData.js";
 import { bestSellers } from "./bestSellers.js";
 import { logout } from "./utils/logout.js";
 
@@ -14,6 +14,7 @@ if (accessToken == null) {
 }
 
 // function to refresh the token
+
 fetchRefresh(refreshUrl, accessToken, refreshToken);
 
 //function to shorten numbers
@@ -25,53 +26,69 @@ function trimNumber(num) {
   }
   return num;
 }
+// putting the response globally
+let globalData;
+
+async function fetchData() {
+  const response = await fetch(url, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+    },
+  });
+  const data = await response.json();
+  globalData = data.dashboard;
+}
+fetchData();
 
 // function to get today data from the API
-const getToday = () => {
-  fetchData(accessToken, url).then((products) => {
-    const today = date.getDay() + 1;
-    const todayData = products.dashboard.sales_over_time_week[today];
-    document.getElementById("today-total").innerText = `$${trimNumber(
-      todayData.total
-    )} `;
-    document.getElementById(
-      "today-orders"
-    ).innerText = ` /${todayData.orders} orders`;
-  });
+
+const getToday = async () => {
+  await fetchData();
+  const products = globalData;
+  const today = date.getDay() + 1;
+  const todayData = products.sales_over_time_week[today];
+  document.getElementById("today-total").innerText = `$${trimNumber(
+    todayData.total
+  )} `;
+  document.getElementById(
+    "today-orders"
+  ).innerText = ` /${todayData.orders} orders`;
 };
+
 getToday();
 
 // function to get last week data from the API
-const getWeek = () => {
-  fetchData(accessToken, url).then((products) => {
-    let sumOrders = 0;
-    let sumTotal = 0;
-    Object.keys(products.dashboard.sales_over_time_week).forEach((key) => {
-      sumOrders += products.dashboard.sales_over_time_week[key].orders;
-      sumTotal += products.dashboard.sales_over_time_week[key].total;
-    });
-    document.getElementById("week-total").innerText = `$${trimNumber(
-      sumTotal
-    )} `;
-    document.getElementById("week-orders").innerText = ` /${sumOrders} orders`;
+
+const getWeek = async () => {
+  await fetchData();
+  const products = globalData;
+  let sumOrders = 0;
+  let sumTotal = 0;
+  Object.keys(products.sales_over_time_week).forEach((key) => {
+    sumOrders += products.sales_over_time_week[key].orders;
+    sumTotal += products.sales_over_time_week[key].total;
   });
+
+  document.getElementById("week-total").innerText = `$${trimNumber(sumTotal)} `;
+  document.getElementById("week-orders").innerText = ` /${sumOrders} orders`;
 };
+
 getWeek();
 
-//function to get last month data
-const getMonth = () => {
-  fetchData(accessToken, url).then((products) => {
-    const month = date.getMonth();
-    const monthData = products.dashboard.sales_over_time_year[month];
-    document.getElementById("month-total").innerText = `$${trimNumber(
-      monthData.total
-    )} `;
-    document.getElementById(
-      "month-orders"
-    ).innerText = ` /${monthData.orders} orders`;
-  });
-};
+// function to get last month data from the API
 
+const getMonth = async () => {
+  await fetchData();
+  const products = globalData;
+  const month = date.getMonth();
+  const monthData = products.sales_over_time_year[month];
+  document.getElementById("month-total").innerText = `$${trimNumber(
+    monthData.total
+  )} `;
+  document.getElementById(
+    "month-orders"
+  ).innerText = ` /${monthData.orders} orders`;
+};
 getMonth();
 
 const data = {
@@ -101,33 +118,13 @@ const data = {
   ],
 };
 
-const customBorder = {
-  id: "customBorder",
-  beforeDatasetsDraw(chart, args, pluginsOptions) {
-    const {
-      ctx,
-      chartArea: { left, top, right, bottom, width, height },
-    } = chart;
-
-    ctx.save();
-    ctx.beginPath();
-    ctx.lineWidth = 3;
-    ctx.strokeStyle = "red";
-    ctx.moveTo(left, top);
-    ctx.lineTo(right, top);
-    ctx.lineTo(right, bottom);
-    ctx.lineTo(left, bottom);
-    ctx.closePath();
-  },
-};
-
 // config
 const config = {
   type: "bar",
   data,
   options: {
     plugins: {
-      customBorder, // bot working
+      // customBorder, // bot working
       legend: {
         display: false,
       },
@@ -153,7 +150,11 @@ const config = {
 const myChart = new Chart(document.getElementById("myChart"), config);
 const myChart2 = new Chart(document.getElementById("myChart2"), config);
 
-const getChart = () => {
+// function to get the chart data from the API
+
+const getChart = async () => {
+  await fetchData();
+  const products = globalData;
   const dayList = ["today", "yesterday", "day 3", "day 4", "day 6", "day 7"];
   const days = dayList.map((day) => {
     return day;
@@ -161,17 +162,18 @@ const getChart = () => {
   myChart.config.data.labels = days;
   myChart.update();
 
-  fetchData(accessToken, url).then((products) => {
-    const revenue = Object.values(products.dashboard.sales_over_time_week).map(
-      (day) => day.total
-    );
-    myChart.config.data.datasets[0].data = revenue;
-    myChart.update();
-  });
+  const revenue = Object.values(products.sales_over_time_week).map(
+    (day) => day.total
+  );
+  myChart.config.data.datasets[0].data = revenue;
+  myChart.update();
 };
 getChart();
 
-const getChart2 = () => {
+const getChart2 = async () => {
+  await fetchData();
+  const products = globalData;
+
   const monthList = [
     "this month",
     "last month",
@@ -192,21 +194,14 @@ const getChart2 = () => {
   myChart2.config.data.labels = months;
   myChart2.update();
 
-  fetchData(accessToken, url).then((products) => {
-    const monthlyRevenue = Object.values(
-      products.dashboard.sales_over_time_year
-    ).map((month) => month.total);
-    myChart2.config.data.datasets[0].data = monthlyRevenue;
-    myChart2.update();
-  });
+  const monthlyRevenue = Object.values(products.sales_over_time_year).map(
+    (month) => month.total
+  );
+  myChart2.config.data.datasets[0].data = monthlyRevenue;
+  myChart2.update();
 };
+
 getChart2();
-// setup
-
-bestSellers(url, accessToken);
-
-const logoutUser = document.getElementById("logoutUser");
-logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
 
 const button = document.querySelector("#btn");
 const table1 = document.querySelector("#first");
@@ -224,3 +219,8 @@ button.addEventListener("click", () => {
     table1Visible = true;
   }
 });
+
+bestSellers(url, accessToken); /// working
+
+const logoutUser = document.getElementById("logoutUser");
+logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
