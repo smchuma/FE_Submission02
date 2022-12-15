@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <title>Orders</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <div class="logo">
+          <img src="./images/Freddys_Logo.svg" alt="logo" />
+        </div>
+        <ul>
+          <li>
+            <a href="./index.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="./order.html">Orders</a>
+          </li>
+          <li>
+            <a href="#" id="logoutUser">Logout</a>
+          </li>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="product-container">
+          <div>
+            <div class="title-container">
+              <h2>Orders</h2>
+              <div class="search">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="search" name="search" />
+              </div>
+            </div>
+          </div>
+          <div class="table-details">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Date</th>
+                  <th>Price</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- populated from the javascript file -->
+              </tbody>
+            </table>
+            <div class="pagination-container">
+              <button class="pagination-button" id="prev" title="Previous page">
+                prev
+              </button>
+
+              <div id="numbers" class="numbers"></div>
+
+              <button class="pagination-button" id="next" title="Next page">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="./js/orders.js"></script>
+  </body>
+</html>

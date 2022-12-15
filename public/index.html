@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Dashboard</title>
+  </head>
+  <body>
+    <nav>
+      <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+      </ul>
+    </nav>
+    <div class="dashboard-container">
+      <div class="sidebar">
+        <div class="logo">
+          <img src="./images/Freddys_Logo.svg" alt="logo" />
+        </div>
+        <ul>
+          <li>
+            <a href="./index.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="./order.html">Orders</a>
+          </li>
+          <li id="logoutUser">Logout</li>
+        </ul>
+      </div>
+      <div class="main">
+        <div class="cards">
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Today</div>
+              <div class="values">
+                <div class="card-value" id="today-total"></div>
+                <div class="card-value" id="today-orders"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Last Week</div>
+              <div class="values">
+                <div class="card-value" id="week-total"></div>
+                <div class="card-value" id="week-orders"></div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-content">
+              <div class="card-name">Last Month</div>
+              <div class="values">
+                <div class="card-value" id="month-total"></div>
+                <div class="card-value" id="month-orders"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="charts">
+          <div class="chart-title">
+            <input type="checkbox" id="btn" />
+          </div>
+          <div class="chart-table">
+            <div class="first" id="first">
+              <h2>Revenue Last 7 days</h2>
+              <canvas id="myChart" class="mychart"></canvas>
+            </div>
+            <div class="second" id="second">
+              <h2>Revenue Last 12 months</h2>
+              <canvas id="myChart2" class="mychart2"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="product-container">
+          <div>
+            <h2>Best Sellers</h2>
+          </div>
+          <div class="table-details">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Product Name</th>
+                  <th>Price</th>
+                  <th>#Unit Sold</th>
+                  <th>Revenue</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- populated from the javascript file -->
+              </tbody>
+            </table>
+            <div class="pagination-container">
+              <button class="pagination-button" id="prev" title="Previous page">
+                prev
+              </button>
+
+              <div id="numbers" class="numbers"></div>
+
+              <button class="pagination-button" id="next" title="Next page">
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script type="module" src="./js/index.js"></script>
+  </body>
+</html>
