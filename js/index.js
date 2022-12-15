@@ -1,6 +1,4 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
-// import { fetchData } from "./utils/fetchData.js";
-import { bestSellers } from "./bestSellers.js";
 import { logout } from "./utils/logout.js";
 
 let accessToken = localStorage.getItem("accessToken");
@@ -13,7 +11,7 @@ if (accessToken == null) {
   window.location.href = "login.html";
 }
 
-// function to refresh the token
+//! function to refresh the token
 
 fetchRefresh(refreshUrl, accessToken, refreshToken);
 
@@ -26,7 +24,7 @@ function trimNumber(num) {
   }
   return num;
 }
-// putting the response globally
+//! putting the response globally
 let globalData;
 
 async function fetchData() {
@@ -40,7 +38,7 @@ async function fetchData() {
 }
 fetchData();
 
-// function to get today data from the API
+//! function to get today data from the API
 
 const getToday = async () => {
   await fetchData();
@@ -75,7 +73,7 @@ const getWeek = async () => {
 
 getWeek();
 
-// function to get last month data from the API
+//! function to get last month data from the API
 
 const getMonth = async () => {
   await fetchData();
@@ -91,21 +89,10 @@ const getMonth = async () => {
 };
 getMonth();
 
+//! chart.js datasets
+
 const data = {
-  labels: [
-    "this month",
-    "last month",
-    "month 3",
-    "month 4",
-    "month 5",
-    "month 6",
-    "month 7",
-    "month 8",
-    "month 9",
-    "month 10",
-    "month 11",
-    "month 12",
-  ],
+  labels: ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"],
   datasets: [
     {
       label: "chart",
@@ -124,7 +111,6 @@ const config = {
   data,
   options: {
     plugins: {
-      // customBorder, // bot working
       legend: {
         display: false,
       },
@@ -155,7 +141,15 @@ const myChart2 = new Chart(document.getElementById("myChart2"), config);
 const getChart = async () => {
   await fetchData();
   const products = globalData;
-  const dayList = ["today", "yesterday", "day 3", "day 4", "day 6", "day 7"];
+  const dayList = [
+    "today",
+    "yesterday",
+    "day 3",
+    "day 4",
+    "day 5",
+    "day 6",
+    "day 7",
+  ];
   const days = dayList.map((day) => {
     return day;
   });
@@ -220,7 +214,66 @@ button.addEventListener("click", () => {
   }
 });
 
-bestSellers(url, accessToken); /// working
+//! function to display bestsellers data with pagination
 
+const table = document.querySelector("table");
+let pageSize = 10;
+let currentPage = 1;
+
+const bestsellers = async (table) => {
+  const tableBody = table.querySelector("tbody");
+  await fetchData();
+  const data = globalData;
+  const start = (currentPage - 1) * pageSize;
+  const end = start + pageSize;
+  const paginatedItems = data.bestsellers.slice(start, end);
+  tableBody.innerHTML = "";
+  const pageNumber = document.createElement("button");
+
+  pageNumber.innerHTML = currentPage;
+  numbers.innerHTML = "";
+  numbers.appendChild(pageNumber);
+
+  paginatedItems.forEach((item) => {
+    const row = document.createElement("tr");
+    const name = document.createElement("td");
+    const date = document.createElement("td");
+    const units = document.createElement("td");
+    const revenue = document.createElement("td");
+
+    name.innerHTML = item.product.name;
+    date.innerHTML = null;
+    units.innerHTML = item.units;
+    revenue.innerHTML = item.revenue;
+
+    row.appendChild(name);
+    row.appendChild(date);
+    row.appendChild(units);
+    row.appendChild(revenue);
+
+    tableBody.appendChild(row);
+  });
+};
+
+bestsellers(table);
+
+const prevPage = async () => {
+  if (currentPage > 1) {
+    currentPage--;
+    await bestsellers(table);
+  }
+};
+
+const nexPage = async () => {
+  if (currentPage < Math.ceil(globalData.bestsellers.length / pageSize)) {
+    currentPage++;
+    await bestsellers(table);
+  }
+};
+
+document.getElementById("prev").addEventListener("click", prevPage);
+document.getElementById("next").addEventListener("click", nexPage);
+
+// function for logout
 const logoutUser = document.getElementById("logoutUser");
 logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));

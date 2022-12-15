@@ -81,7 +81,7 @@
             <h2>Best Sellers</h2>
           </div>
           <div class="table-details">
-            <table>
+            <table class="table">
               <thead>
                 <tr>
                   <th>Product Name</th>
@@ -90,10 +90,21 @@
                   <th>Revenue</th>
                 </tr>
               </thead>
-              <tbody id="data-output">
+              <tbody>
                 <!-- populated from the javascript file -->
               </tbody>
             </table>
+            <div class="pagination-container">
+              <button class="pagination-button" id="prev" title="Previous page">
+                prev
+              </button>
+
+              <div id="numbers" class="numbers"></div>
+
+              <button class="pagination-button" id="next" title="Next page">
+                Next
+              </button>
+            </div>
           </div>
         </div>
       </div>

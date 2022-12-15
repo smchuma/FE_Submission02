@@ -1,5 +1,4 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
-// import { fetchData } from "./utils/fetchData.js";
 import { logout } from "./utils/logout.js";
 
 let accessToken = localStorage.getItem("accessToken");
@@ -11,9 +10,6 @@ if (accessToken == null) {
   window.location.href = "login.html";
 }
 fetchRefresh(refreshUrl, accessToken, refreshToken);
-
-const logoutUser = document.getElementById("logoutUser");
-logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
 
 let globalData;
 let pageSize = 10;
@@ -93,23 +89,7 @@ const nexPage = async () => {
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
 
-// const searchFilter = async () => {
-//   await fetchData();
-//   const data = globalData;
-//   const search = document.getElementById("search");
-//   search.addEventListener("keyup", (e) => {
-//     search.value = e.target.value;
+//! function for logout
 
-//     const filteredData = data.filter((item) => {
-//       return (
-//         item.product.name.toLowerCase().includes(search.value.toLowerCase()) ||
-//         item.status.toLowerCase().includes(search.value.toLowerCase())
-//       );
-//     });
-//     console.log("filteredData", filteredData);
-//   });
-
-//   console.log("filteredData", filteredData);
-// };
-
-// searchFilter();
+const logoutUser = document.getElementById("logoutUser");
+logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));

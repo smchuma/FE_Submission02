@@ -1,6 +1,8 @@
 const accessToken = localStorage.getItem("accessToken");
 const refreshToken = localStorage.getItem("refreshToken");
 
+//! if the user is logged in, redirect to index.html
+
 if (
   accessToken !== "undefined" &&
   accessToken !== null &&
@@ -11,6 +13,8 @@ if (
 ) {
   window.location.href = "index.html";
 }
+
+//! function to submit the form so that the user can log in
 
 const submitForm = (e) => {
   e.preventDefault();
