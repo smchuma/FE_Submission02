@@ -25,11 +25,12 @@ function trimNumber(num) {
   return num;
 }
 
+const globalData = await fetchData(url, accessToken);
+const products = globalData.dashboard;
+
 //! function to get today data from the API
 
 const getToday = async () => {
-  const globalData = await fetchData(url, accessToken);
-  const products = globalData.dashboard;
   const today = date.getDay() + 1;
   const todayData = products.sales_over_time_week[today];
   document.getElementById("today-total").innerText = `$${trimNumber(
@@ -45,9 +46,6 @@ getToday();
 //! function to get last week data from the API
 
 const getWeek = async () => {
-  const globalData = await fetchData(url, accessToken);
-  const products = globalData.dashboard;
-
   let sumOrders = 0;
   let sumTotal = 0;
   Object.keys(products.sales_over_time_week).forEach((key) => {
@@ -64,9 +62,6 @@ getWeek();
 //! function to get last month data from the API
 
 const getMonth = async () => {
-  const globalData = await fetchData(url, accessToken);
-  const products = globalData.dashboard;
-
   const month = date.getMonth();
   const monthData = products.sales_over_time_year[month];
   document.getElementById("month-total").innerText = `$${trimNumber(
@@ -79,9 +74,33 @@ const getMonth = async () => {
 getMonth();
 
 //! chart.js datasets
+const daysList = [
+  "today",
+  "yesterday",
+  "day 3",
+  "day 4",
+  "day 5",
+  "day 6",
+  "day 7",
+];
+
+const monthsList = [
+  "this month",
+  "last month",
+  "month 3",
+  "month 4",
+  "month 5",
+  "month 6",
+  "month 7",
+  "month 8",
+  "month 9",
+  "month 10",
+  "month 11",
+  "month 12",
+];
 
 const data = {
-  labels: ["today", "yesterday", "day 3", "day 4", "day 5", "day 6", "day 7"],
+  labels: daysList,
   datasets: [
     {
       label: "chart",
@@ -123,85 +142,39 @@ const config = {
 };
 
 const myChart = new Chart(document.getElementById("myChart"), config);
-const myChart2 = new Chart(document.getElementById("myChart2"), config);
 
 //! function to get the chart data from the API
 
-const getChart = async () => {
-  const globalData = await fetchData(url, accessToken);
-  const products = globalData.dashboard;
-  const dayList = [
-    "today",
-    "yesterday",
-    "day 3",
-    "day 4",
-    "day 5",
-    "day 6",
-    "day 7",
-  ];
-  const days = dayList.map((day) => {
-    return day;
-  });
-  myChart.config.data.labels = days;
-  myChart.update();
+let toggleValue = true;
 
+function toggle() {
+  toggleValue = !toggleValue;
+  if (toggleValue) {
+    getChart();
+  } else {
+    const revenue = Object.values(products.sales_over_time_year).map(
+      (month) => month.total
+    );
+    myChart.config.data.datasets[0].data = revenue;
+    document.getElementById("chart-title").innerText = "Revenue Last 12 months";
+    myChart.config.data.labels = monthsList;
+    myChart.update();
+  }
+}
+
+const getChart = () => {
   const revenue = Object.values(products.sales_over_time_week).map(
     (day) => day.total
   );
+  document.getElementById("chart-title").innerText = "Revenue Last 7 days";
   myChart.config.data.datasets[0].data = revenue;
+  myChart.config.data.labels = daysList;
   myChart.update();
 };
 getChart();
 
-const getChart2 = async () => {
-  const globalData = await fetchData(url, accessToken);
-  const products = globalData.dashboard;
-
-  const monthList = [
-    "this month",
-    "last month",
-    "month 3",
-    "month 4",
-    "month 5",
-    "month 6",
-    "month 7",
-    "month 8",
-    "month 9",
-    "month 10",
-    "month 11",
-    "month 12",
-  ];
-  const months = monthList.map((month) => {
-    return month;
-  });
-  myChart2.config.data.labels = months;
-  myChart2.update();
-
-  const monthlyRevenue = Object.values(products.sales_over_time_year).map(
-    (month) => month.total
-  );
-  myChart2.config.data.datasets[0].data = monthlyRevenue;
-  myChart2.update();
-};
-
-getChart2();
-
-const button = document.querySelector("#btn");
-const table1 = document.querySelector("#first");
-const table2 = document.querySelector("#second");
-let table1Visible = true;
-
-button.addEventListener("click", () => {
-  if (table1Visible) {
-    $(table1).hide();
-    $(table2).show();
-    table1Visible = false;
-  } else {
-    $(table2).hide();
-    $(table1).show();
-    table1Visible = true;
-  }
-});
+const btn = document.querySelector("#btn");
+btn.addEventListener("click", () => toggle());
 
 //! function to display bestsellers data with pagination
 
