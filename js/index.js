@@ -1,10 +1,10 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
+import { fetchData } from "./utils/fetchData.js";
 import { logout } from "./utils/logout.js";
 
 let accessToken = localStorage.getItem("accessToken");
-const refreshToken = localStorage.getItem("refreshToken");
 const url = "https://freddy.codesubmit.io/dashboard";
-const refreshUrl = "https://freddy.codesubmit.io/refresh";
+
 const date = new Date();
 
 if (accessToken == null) {
@@ -13,7 +13,7 @@ if (accessToken == null) {
 
 //! function to refresh the token
 
-fetchRefresh(refreshUrl, accessToken, refreshToken);
+fetchRefresh(accessToken);
 
 //!function to shorten numbers
 function trimNumber(num) {
@@ -24,25 +24,12 @@ function trimNumber(num) {
   }
   return num;
 }
-//! putting the response globally
-let globalData;
-
-async function fetchData() {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const data = await response.json();
-  globalData = data.dashboard;
-}
-fetchData();
 
 //! function to get today data from the API
 
 const getToday = async () => {
-  await fetchData();
-  const products = globalData;
+  const globalData = await fetchData(url, accessToken);
+  const products = globalData.dashboard;
   const today = date.getDay() + 1;
   const todayData = products.sales_over_time_week[today];
   document.getElementById("today-total").innerText = `$${trimNumber(
@@ -58,8 +45,9 @@ getToday();
 //! function to get last week data from the API
 
 const getWeek = async () => {
-  await fetchData();
-  const products = globalData;
+  const globalData = await fetchData(url, accessToken);
+  const products = globalData.dashboard;
+
   let sumOrders = 0;
   let sumTotal = 0;
   Object.keys(products.sales_over_time_week).forEach((key) => {
@@ -76,8 +64,9 @@ getWeek();
 //! function to get last month data from the API
 
 const getMonth = async () => {
-  await fetchData();
-  const products = globalData;
+  const globalData = await fetchData(url, accessToken);
+  const products = globalData.dashboard;
+
   const month = date.getMonth();
   const monthData = products.sales_over_time_year[month];
   document.getElementById("month-total").innerText = `$${trimNumber(
@@ -139,8 +128,8 @@ const myChart2 = new Chart(document.getElementById("myChart2"), config);
 //! function to get the chart data from the API
 
 const getChart = async () => {
-  await fetchData();
-  const products = globalData;
+  const globalData = await fetchData(url, accessToken);
+  const products = globalData.dashboard;
   const dayList = [
     "today",
     "yesterday",
@@ -165,8 +154,8 @@ const getChart = async () => {
 getChart();
 
 const getChart2 = async () => {
-  await fetchData();
-  const products = globalData;
+  const globalData = await fetchData(url, accessToken);
+  const products = globalData.dashboard;
 
   const monthList = [
     "this month",
@@ -221,9 +210,10 @@ let pageSize = 10;
 let currentPage = 1;
 
 const bestsellers = async (table) => {
+  const globalData = await fetchData(url, accessToken);
+  const data = globalData.dashboard;
+
   const tableBody = table.querySelector("tbody");
-  await fetchData();
-  const data = globalData;
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   const paginatedItems = data.bestsellers.slice(start, end);
@@ -277,4 +267,4 @@ document.getElementById("next").addEventListener("click", nexPage);
 
 //! function for logout
 const logoutUser = document.getElementById("logoutUser");
-logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
+logoutUser.addEventListener("click", () => logout());

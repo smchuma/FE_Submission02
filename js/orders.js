@@ -1,40 +1,28 @@
 import { fetchRefresh } from "./utils/fetchRefresh.js";
+import { fetchData } from "./utils/fetchData.js";
 import { logout } from "./utils/logout.js";
 
 let accessToken = localStorage.getItem("accessToken");
-const refreshToken = localStorage.getItem("refreshToken");
 const url = "https://freddy.codesubmit.io/orders";
-const refreshUrl = "https://freddy.codesubmit.io/refresh";
+
+//! checking if accessToken is null
 
 if (accessToken == null) {
   window.location.href = "login.html";
 }
-fetchRefresh(refreshUrl, accessToken, refreshToken);
+fetchRefresh(accessToken);
 
-let globalData;
 let pageSize = 10;
 let currentPage = 1;
-
-//! function to fetch data from the API
-
-async function fetchData() {
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-  const data = await response.json();
-  globalData = data.orders;
-}
-
-//! function to display data
+const globalData = await fetchData(url, accessToken);
+const data = globalData.orders;
 
 const table = document.querySelector("table");
 
+//! function to display data in table and pagination
+
 const renderTable = async (table) => {
   const tableBody = table.querySelector("tbody");
-  await fetchData();
-  const data = globalData;
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
   const paginatedItems = data.slice(start, end);
@@ -82,7 +70,7 @@ const prevPage = async () => {
 };
 
 const nexPage = async () => {
-  if (currentPage < Math.ceil(globalData.length / pageSize)) {
+  if (currentPage < Math.ceil(data.length / pageSize)) {
     currentPage++;
     await renderTable(table);
   }
@@ -91,7 +79,29 @@ const nexPage = async () => {
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
 
+//! search function
+
+const filterSearch = () => {
+  const filter = searchInput.value.toUpperCase();
+  const tr = table.getElementsByTagName("tr");
+  for (let i = 0; i < tr.length; i++) {
+    const td = tr[i].getElementsByTagName("td")[0];
+    if (td) {
+      const textValue = td.textContent || td.innerText;
+      if (textValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+};
+
+const searchInput = document.getElementById("search");
+
+searchInput.addEventListener("keyup", filterSearch);
+
 //! function for logout
 
 const logoutUser = document.getElementById("logoutUser");
-logoutUser.addEventListener("click", () => logout(accessToken, refreshToken));
+logoutUser.addEventListener("click", () => logout());

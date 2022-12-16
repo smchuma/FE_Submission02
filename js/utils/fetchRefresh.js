@@ -1,6 +1,9 @@
-export const fetchRefresh = (url, accessToken, refreshToken) => {
+export const fetchRefresh = (accessToken) => {
+  const refreshUrl = "https://freddy.codesubmit.io/refresh";
+  const refreshToken = localStorage.getItem("refreshToken");
+
   const xhr = new XMLHttpRequest();
-  xhr.open("POST", url);
+  xhr.open("POST", refreshUrl);
   xhr.setRequestHeader("Authorization", "Bearer " + refreshToken);
   xhr.send("refreshToken" + refreshToken);
 
