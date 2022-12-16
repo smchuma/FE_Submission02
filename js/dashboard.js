@@ -183,13 +183,10 @@ let pageSize = 10;
 let currentPage = 1;
 
 const bestsellers = async (table) => {
-  const globalData = await fetchData(url, accessToken);
-  const data = globalData.dashboard;
-
   const tableBody = table.querySelector("tbody");
   const start = (currentPage - 1) * pageSize;
   const end = start + pageSize;
-  const paginatedItems = data.bestsellers.slice(start, end);
+  const paginatedItems = products.bestsellers.slice(start, end);
   tableBody.innerHTML = "";
   const pageNumber = document.createElement("button");
 
@@ -229,7 +226,7 @@ const prevPage = async () => {
 
 //!  pagination buttons
 const nexPage = async () => {
-  if (currentPage < Math.ceil(globalData.bestsellers.length / pageSize)) {
+  if (currentPage < Math.ceil(products.bestsellers.length / pageSize)) {
     currentPage++;
     await bestsellers(table);
   }
