@@ -11,7 +11,7 @@ if (
   refreshToken !== null &&
   refreshToken !== ""
 ) {
-  window.location.href = "index.html";
+  window.location.href = "dashboard.html";
 }
 
 //! function to submit the form so that the user can log in
