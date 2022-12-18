@@ -113,4 +113,6 @@ menuBtn.addEventListener("click", () => {
 //! function for logout
 
 const logoutUser = document.getElementById("logoutUser");
+const menuLogout = document.getElementById("logoutUser");
 logoutUser.addEventListener("click", () => logout());
+menuLogout.addEventListener("click", () => logout());

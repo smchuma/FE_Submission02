@@ -48,6 +48,9 @@
         }
       }
     }
+    .charts {
+      min-width: 70%;
+    }
   }
 }
 @media all and (max-width: 950px) {
@@ -149,6 +152,9 @@
           }
         }
       }
+    }
+    .charts {
+      min-width: 90%;
     }
   }
 }
