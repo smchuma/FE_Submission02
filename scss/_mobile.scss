@@ -89,6 +89,44 @@
         }
       }
     }
+    .dashboard-container {
+      .sidebar {
+        display: none;
+      }
+      .main {
+        position: absolute;
+        top: 60px;
+        width: 100%;
+        min-height: calc(100% - 60px);
+        left: 0px;
+        padding-left: 50px;
+
+        .cards {
+          width: 60%;
+          padding: 35px 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-gap: 20px;
+
+          .card {
+            padding: 20px;
+            border: 2px solid $border-color;
+            width: 250px;
+
+            .card-content {
+              .card-name {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .nav-menu {
+      .hamburger {
+        display: block;
+      }
+    }
   }
 }
 @media all and (max-width: 650px) {

@@ -98,8 +98,17 @@ const filterSearch = () => {
 };
 
 const searchInput = document.getElementById("search");
-
 searchInput.addEventListener("keyup", filterSearch);
+
+//! hamburger menu
+
+const menuBtn = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("is-active");
+  mobileMenu.classList.toggle("is-active");
+});
 
 //! function for logout
 

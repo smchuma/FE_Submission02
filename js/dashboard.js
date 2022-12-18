@@ -235,6 +235,16 @@ const nexPage = async () => {
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
 
+//! function to display the mobile menu
+
+const menuBtn = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("is-active");
+  mobileMenu.classList.toggle("is-active");
+});
+
 //! function for logout
 const logoutUser = document.getElementById("logoutUser");
 logoutUser.addEventListener("click", () => logout());

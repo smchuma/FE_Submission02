@@ -1,0 +1,30 @@
+{
+  "name": "fe_submission02",
+  "version": "1.0.0",
+  "description": "analyticdashboard.netlify.app/",
+  "main": "index.js",
+  "scripts": {
+    "watch:sass": "node-sass scss/style.scss css/style.css -w",
+    "devserver": "live-server",
+    "start": "npm-run-all --parallel devserver watch:sass",
+    "compile:sass": "node-sass scss/style.scss css/style.comp.css",
+    "build": "compile:sass",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/smchuma/FE_Submission02.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/smchuma/FE_Submission02/issues"
+  },
+  "homepage": "https://github.com/smchuma/FE_Submission02#readme",
+  "dependencies": {
+    "live-server": "^1.2.2",
+    "node-sass": "^8.0.0",
+    "npm-run-all": "^4.1.5"
+  }
+}
