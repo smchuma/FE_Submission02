@@ -6,7 +6,7 @@ let accessToken = localStorage.getItem("accessToken");
 const url = "https://freddy.codesubmit.io/dashboard";
 
 if (accessToken == null) {
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }
 
 //! function to refresh the token
