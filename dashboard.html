@@ -8,21 +8,40 @@
     <title>Dashboard</title>
   </head>
   <body>
-    <nav>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </nav>
+    <div class="nav-menu">
+      <nav>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div class="hamburger">
+          <div class="bar"></div>
+        </div>
+      </nav>
+    </div>
     <div class="dashboard-container">
+      <div class="mobile">
+        <div class="logo">
+          <img src="./images/Freddys_Logo.svg" alt="logo" />
+        </div>
+        <ul>
+          <li>
+            <a href="./dashboard.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="./order.html">Orders</a>
+          </li>
+          <li id="menuLogout">Logout</li>
+        </ul>
+      </div>
       <div class="sidebar">
         <div class="logo">
           <img src="./images/Freddys_Logo.svg" alt="logo" />
         </div>
         <ul>
           <li>
-            <a href="./index.html">Dashboard</a>
+            <a href="./dashboard.html">Dashboard</a>
           </li>
           <li>
             <a href="./order.html">Orders</a>
@@ -65,8 +84,8 @@
             <input type="checkbox" id="btn" />
           </div>
           <div class="chart-table">
-            <div class="first" id="first">
-              <h2 id="chart-title"></h2>
+            <h2 id="chart-title"></h2>
+            <div class="chart-box">
               <canvas id="myChart" class="mychart"></canvas>
             </div>
           </div>

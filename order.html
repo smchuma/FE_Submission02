@@ -16,28 +16,45 @@
     <title>Orders</title>
   </head>
   <body>
-    <nav>
-      <ul>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
-    </nav>
+    <div class="nav-menu">
+      <nav>
+        <ul>
+          <li></li>
+          <li></li>
+          <li></li>
+        </ul>
+        <div class="hamburger">
+          <div class="bar"></div>
+        </div>
+      </nav>
+    </div>
     <div class="dashboard-container">
+      <div class="mobile">
+        <div class="logo">
+          <img src="./images/Freddys_Logo.svg" alt="logo" />
+        </div>
+        <ul>
+          <li>
+            <a href="./dashboard.html">Dashboard</a>
+          </li>
+          <li>
+            <a href="./order.html">Orders</a>
+          </li>
+          <li id="menulogout">Logout</li>
+        </ul>
+      </div>
       <div class="sidebar">
         <div class="logo">
           <img src="./images/Freddys_Logo.svg" alt="logo" />
         </div>
         <ul>
           <li>
-            <a href="./index.html">Dashboard</a>
+            <a href="./dashboard.html">Dashboard</a>
           </li>
           <li>
             <a href="./order.html">Orders</a>
           </li>
-          <li>
-            <a href="#" id="logoutUser">Logout</a>
-          </li>
+          <li id="logoutUser">Logout</li>
         </ul>
       </div>
       <div class="main">

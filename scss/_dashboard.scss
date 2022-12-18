@@ -1,4 +1,32 @@
 .dashboard-container {
+  .mobile {
+    background: #1f3473;
+    display: flex;
+    left: 100%;
+    align-items: center;
+    flex-direction: column;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    color: white;
+    font-size: 50px;
+    transition: all 0.5s ease-in-out;
+
+    .logo {
+      margin-top: 20px;
+      padding: 20px;
+      margin-left: 20px;
+      img {
+        width: 70%;
+      }
+    }
+
+    a {
+      color: white;
+      font-size: 50px;
+    }
+  }
   .sidebar {
     position: fixed;
     top: 60px;
@@ -20,6 +48,7 @@
     ul {
       padding: 0px 20px;
       margin-left: 20px;
+      cursor: pointer;
 
       li {
         margin-top: 15px;
@@ -110,17 +139,17 @@
       }
     }
     .chart-table {
-      canvas {
-        border: 1px solid gray;
-      }
-      .second {
-        display: none;
+      .chart-box {
+        width: 100%;
+        height: 400px;
+        canvas {
+          border: 1px solid gray;
+        }
       }
     }
   }
   .product-container {
-    margin-top: 50px;
-
+    margin-top: 70px;
     width: 90%;
 
     .table-details {
@@ -152,5 +181,8 @@
         }
       }
     }
+  }
+  .is-active {
+    left: 0;
   }
 }

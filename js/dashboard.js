@@ -5,8 +5,6 @@ import { logout } from "./utils/logout.js";
 let accessToken = localStorage.getItem("accessToken");
 const url = "https://freddy.codesubmit.io/dashboard";
 
-const date = new Date();
-
 if (accessToken == null) {
   window.location.href = "login.html";
 }
@@ -27,6 +25,7 @@ function trimNumber(num) {
 
 const globalData = await fetchData(url, accessToken);
 const products = globalData.dashboard;
+const date = new Date();
 
 //! function to get today data from the API
 
@@ -74,6 +73,7 @@ const getMonth = async () => {
 getMonth();
 
 //! chart.js datasets
+
 const daysList = [
   "today",
   "yesterday",
@@ -118,6 +118,7 @@ const config = {
   type: "bar",
   data,
   options: {
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -235,6 +236,18 @@ const nexPage = async () => {
 document.getElementById("prev").addEventListener("click", prevPage);
 document.getElementById("next").addEventListener("click", nexPage);
 
+//! function to display the mobile menu
+
+const menuBtn = document.querySelector(".hamburger");
+const mobileMenu = document.querySelector(".mobile");
+
+menuBtn.addEventListener("click", () => {
+  menuBtn.classList.toggle("is-active");
+  mobileMenu.classList.toggle("is-active");
+});
+
 //! function for logout
 const logoutUser = document.getElementById("logoutUser");
+const menuLogout = document.getElementById("menuLogout");
 logoutUser.addEventListener("click", () => logout());
+menuLogout.addEventListener("click", () => logout());
