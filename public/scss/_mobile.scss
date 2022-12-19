@@ -1,0 +1,170 @@
+@media all and (max-width: 1495px) {
+  body {
+    .container {
+      .login-form {
+        width: 40%;
+        .title-box {
+          .title {
+            h1 {
+              font-size: 26px;
+            }
+          }
+          .image {
+            img {
+              width: 70%;
+            }
+          }
+        }
+
+        form {
+          input {
+            font-size: 25px;
+
+            &::placeholder {
+              font-size: 25px;
+            }
+          }
+
+          button {
+            font-size: 25px;
+          }
+        }
+      }
+    }
+  }
+}
+@media all and (max-width: 1070px) {
+  body {
+    .container {
+      .login-form {
+        width: 45%;
+
+        .title-box {
+          .title {
+            h1 {
+              font-size: 24px;
+            }
+          }
+        }
+      }
+    }
+    .charts {
+      min-width: 70%;
+    }
+  }
+}
+@media all and (max-width: 950px) {
+  body {
+    .container {
+      .login-form {
+        width: 60%;
+
+        .title-box {
+          flex-direction: column-reverse;
+
+          .title {
+            h1 {
+              margin-top: 20px;
+              font-size: 22px;
+              text-align: center;
+            }
+          }
+          .image {
+            justify-content: center;
+            img {
+              width: 50%;
+            }
+          }
+        }
+
+        form {
+          input {
+            font-size: 22px;
+
+            &::placeholder {
+              font-size: 22px;
+            }
+          }
+
+          button {
+            font-size: 22px;
+          }
+        }
+      }
+    }
+    .dashboard-container {
+      .sidebar {
+        display: none;
+      }
+      .main {
+        position: absolute;
+        top: 60px;
+        width: 100%;
+        min-height: calc(100% - 60px);
+        left: 0px;
+        padding-left: 50px;
+
+        .cards {
+          width: 60%;
+          padding: 35px 0;
+          display: grid;
+          grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+          grid-gap: 20px;
+
+          .card {
+            padding: 20px;
+            border: 2px solid $border-color;
+            width: 250px;
+
+            .card-content {
+              .card-name {
+                font-size: 20px;
+              }
+            }
+          }
+        }
+      }
+    }
+    .nav-menu {
+      .hamburger {
+        display: block;
+      }
+    }
+  }
+}
+@media all and (max-width: 650px) {
+  body {
+    .container {
+      .login-form {
+        width: 80%;
+
+        form {
+          input {
+            font-size: 18px;
+
+            &::placeholder {
+              font-size: 18px;
+            }
+          }
+
+          button {
+            font-size: 18px;
+          }
+        }
+      }
+    }
+    .charts {
+      min-width: 90%;
+    }
+  }
+}
+
+@media all and (max-width: 350px) {
+  body {
+    .container {
+      .login-form {
+        width: 100%;
+      }
+    }
+  }
+}
